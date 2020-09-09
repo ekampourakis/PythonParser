@@ -5,6 +5,7 @@
 <simple_stmt> ::= <small_stmt> NEWLINE
 <small_stmt> ::= <import_stmt> | <break_stmt> | <continue_stmt>
 
+<assign_stmt> ::= <dotted_name> "=" <term>
 <break_stmt> ::= 'break'
 <continue_stmt> ::= 'continue'
 

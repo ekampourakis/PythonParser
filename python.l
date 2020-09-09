@@ -7,27 +7,39 @@ void showError();
 
 %}
 
-%option noyywrap
-%option yylineno
+%option noyywrap yylineno
 
 NUMBERS ([0-9])+
 FLOATS [-+]?[0-9]*\.?[0-9]+
-ALPHA ([a-zA-Z])+
-ALPHANUM ([a-zA-Z0-9_])+
+NAME ([a-zA-Z0-9_])+
+COMMENT "#".*
+OP [-+/*]
 
 %%
 
 "import" { return (IMPORT); }
-{NUMBERS} { yylval.i = atoi(yytext); return (NUMBER); }
-{FLOATS} { yylval.f = atof(yytext);return (NUMBER); }
-{ALPHANUM} { yylval.a = yytext; return (NAME); }
-"\n" { return (NEWLINE); }
-"\r\n" { return (NEWLINE); }
-
+"from" { return (IMPORT_FROM); }
+"class" { return (CLASS); }
+"def" { return (DEF); }
+"()" { return (ARGS); }
+":" { return (DELI); }
+"." { return (DOT); }
+"if"|"elif"|"else" { return (TEST); }
+"<"|">"|"=="|">="|"<="|"<>"|"!=" { return (TESTOP); }
+"for" { return (FOR); }
+"in" { return (IN); }
+{NUMBERS} { yylval.i = atoi(yytext); return (INT); }
+{FLOATS} { yylval.f = atof(yytext);return (FLOAT); }
+{COMMENT} { return (TYPE_COMMENT); }
+{NAME} { yylval.a = yytext; return (NAME); }
+{OP} { return (OP); }
+"\n"|"\r\n" { return (NEWLINE); }
+"\t"|"  "|"    " { return (INDENT); }
+"=" { return (ASSIGNOP); }
 . { showError(); }
 
 %%
 
 void showError() {
-    printf("Unrecognized token\n");
+    // printf("Unrecognized token\n");
 }
