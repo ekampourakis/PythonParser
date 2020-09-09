@@ -1,0 +1,44 @@
+
+<single_input> ::= NEWLINE | <simple_stmt> | <compound_stmt> NEWLINE
+
+<stmt> ::= <simple_stmt> | <compound_stmt> | TYPE_COMMENT
+<simple_stmt> ::= <small_stmt> NEWLINE
+<small_stmt> ::= <import_stmt> | <break_stmt> | <continue_stmt>
+
+<break_stmt> ::= 'break'
+<continue_stmt> ::= 'continue'
+
+<import_stmt> ::= <import_name> | <import_from>
+<import_name> ::= 'import' <dotted_as_names>
+<import_from> ::= ('from' (('.' | '...')* <dotted_name> | ('.' | '...')+)
+              'import' ('*' | '(' <import_as_names> ')' | <import_as_names>))
+<import_as_name> ::= NAME ['as' NAME]
+<dotted_as_name> ::= <dotted_name> ['as' NAME]
+<import_as_names> ::= <import_as_name> (',' <import_as_name>)* [',']
+<dotted_as_names> ::= <dotted_as_name> (',' <dotted_as_name>)*
+<dotted_name> ::= NAME ('.' NAME)*
+
+<compound_stmt> ::= <if_stmt> | <for_stmt> | <funcdef> | <classdef>
+<if_stmt> ::= 'if' <namedexpr_test> ':' <suite> ('elif' <namedexpr_test> ':' <suite>)* ['else' ':' <suite>]
+<for_stmt> ::= 'for' <exprlist> 'in' <testlist> ':' [TYPE_COMMENT] <suite> ['else' ':' <suite>]
+
+<exprlist> ::= <expr> (',' <expr>)* [',']
+<testlist> ::= <test> (',' <test>)* [',']
+
+<suite> ::= <simple_stmt> | NEWLINE INDENT <stmt>+ DEDENT
+
+<namedexpr_test> ::= <test> [':=' <test>]
+<test> ::= <or_test> ['if' <or_test> 'else' <test>]
+<or_test> ::= <and_test> ('or' <and_test>)*
+<and_test> ::= <not_test> ('and' <not_test>)*
+<not_test> ::= 'not' <not_test> | <comparison>
+<comparison> ::= <expr> (<comp_op> <expr>)*
+<comp_op> ::= '<'|'>'|'=='|'>='|'<='|'<>'|'!='
+
+<expr>: <term> (('+'|'-'|'*'|'/') <term>)*
+<term> ::= (NAME | NUMBER | STRING+ | 'True' | 'False')
+
+<classdef> ::= 'class' NAME '()' ':' <suite>
+
+<funcdef> ::= 'def' NAME '()' ':' [TYPE_COMMENT] <func_body_suite>
+<func_body_suite> ::= <simple_stmt> | NEWLINE [TYPE_COMMENT NEWLINE] INDENT <stmt>+ DEDENT
