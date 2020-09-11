@@ -1,15 +1,15 @@
 import math
-from math import sq
+from tf import listener
 
 # This is my simulation class
 class Simulator():
 	# These are my simulation variables
-	SimulationState = 0
+	State = 0
 	TimeStep = 0.01
 
 	def Step():
 		for x in range():
-			SimulationState = SimulationState + 1
+			State = State + 1
 
 	def Speed():
 		if TimeStep == 0.01:

@@ -2,9 +2,6 @@
 /Flex.pdf
 /Python.bnf
 /example
-/lex.yy.c
 /lex.yy.o
 /parser
-/y.tab.c
-/y.tab.h
 /y.tab.o

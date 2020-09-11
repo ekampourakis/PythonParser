@@ -20,8 +20,10 @@
 <dotted_name> ::= NAME ('.' NAME)*
 
 <compound_stmt> ::= <if_stmt> | <for_stmt> | <funcdef> | <classdef>
-<if_stmt> ::= 'if' <namedexpr_test> ':' <suite> ('elif' <namedexpr_test> ':' <suite>)* ['else' ':' <suite>]
-<for_stmt> ::= 'for' <exprlist> 'in' <testlist> ':' [TYPE_COMMENT] <suite> ['else' ':' <suite>]
+<if_stmt> ::= 'if' <namedexpr_test> ':' <suite> 
+    ('elif' <namedexpr_test> ':' <suite>)* ['else' ':' <suite>]
+<for_stmt> ::= 'for' <exprlist> 'in' <testlist> ':' 
+    [TYPE_COMMENT] <suite> ['else' ':' <suite>]
 
 <exprlist> ::= <expr> (',' <expr>)* [',']
 <testlist> ::= <test> (',' <test>)* [',']
@@ -42,4 +44,5 @@
 <classdef> ::= 'class' NAME '()' ':' <suite>
 
 <funcdef> ::= 'def' NAME '()' ':' [TYPE_COMMENT] <func_body_suite>
-<func_body_suite> ::= <simple_stmt> | NEWLINE [TYPE_COMMENT NEWLINE] INDENT <stmt>+ DEDENT
+<func_body_suite> ::= <simple_stmt> | NEWLINE 
+    [TYPE_COMMENT NEWLINE] INDENT <stmt>+ DEDENT

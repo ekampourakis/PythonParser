@@ -11,11 +11,8 @@ extern int yylineno;
 
 %}
 
-%token NEWLINE TYPE_COMMENT ALPHA NAME INT FLOAT INDENT
-%token IMPORT IMPORT_FROM ASSIGNOP
-%token CLASS ARGS DELI DEF DOT OP
-%token TEST ELIF ELSE TESTOP
-%token FOR IN
+%token NEWLINE TYPE_COMMENT ALPHA NAME INT FLOAT INDENT TEST ELIF ELSE TESTOP 
+%token IMPORT IMPORT_FROM ASSIGNOP CLASS ARGS DELI DEF DOT OP FOR IN
 
 %type <a> NAME
 %type <f> FLOAT
@@ -32,7 +29,8 @@ extern int yylineno;
 prog: single_input | single_input prog;
 
 single_input: stmt | NEWLINE { printf("Newline on line %d\n", yylineno - 1); };
-stmt: simple_stmt | compount_stmt | TYPE_COMMENT NEWLINE{ printf("Comment on line %d\n", yylineno - 1); };
+stmt: simple_stmt | compount_stmt 
+    | TYPE_COMMENT NEWLINE{ printf("Comment on line %d\n", yylineno - 1); };
 simple_stmt: small_stmt NEWLINE | INDENT;
 small_stmt: import_stmt | assign_stmt | call;
 import_stmt: import_name | import_from import_name;
